@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.xsd"
       label="%featureName"
-      version="2.1.0"
+      version="2.0.2"
       provider-name="%providerName"
       image="eclipse_update_120.jpg">
 
@@ -11,7 +11,7 @@
    </description>
 
    <copyright url="http://www.eclipse.org/legal/cpl-v10.html">
-      Copyright (c) 2002-2004 IBM Corporation and others.
+      Copyright (c) 2002-2005 IBM Corporation and others.
 All rights reserved.   This program and the accompanying materials
 are made available under the terms of the Common Public License v1.0
 which accompanies this distribution, and is available at
@@ -23,7 +23,6 @@ http://www.eclipse.org/legal/cpl-v10.html
    </license>
 
    <url>
-<!--      <update label="%updateSiteName" url="http://update.eclipse.org/updates/3.0"/> -->
       <update label="%secondaryUpdateSiteName" url="http://download.eclipse.org/tools/emf/updates/"/>
       <discovery label="%secondaryUpdateSiteName" url="http://download.eclipse.org/tools/emf/updates/"/>
    </url>
@@ -37,36 +36,36 @@ http://www.eclipse.org/legal/cpl-v10.html
          id="org.eclipse.xsd"
          download-size="0"
          install-size="0"
-         version="2.1.0"/>
+         version="2.0.2"/>
 
    <plugin
          id="org.eclipse.xsd.edit"
          download-size="0"
          install-size="0"
-         version="2.1.0"/>
+         version="2.0.1"/>
 
    <plugin
          id="org.eclipse.xsd.editor"
          download-size="0"
          install-size="0"
-         version="2.1.0"/>
+         version="2.0.1"/>
 
    <plugin
          id="org.eclipse.xsd.test"
          download-size="0"
          install-size="0"
-         version="2.1.0"/>
+         version="2.0.1"/>
 
    <plugin
          id="org.eclipse.emf.mapping.xsd2ecore"
          download-size="0"
          install-size="0"
-         version="2.1.0"/>
+         version="2.0.1"/>
 
    <plugin
          id="org.eclipse.emf.mapping.xsd2ecore.editor"
          download-size="0"
          install-size="0"
-         version="2.1.0"/>
+         version="2.0.1"/>
 
 </feature>
