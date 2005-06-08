@@ -3,16 +3,16 @@
  *
  * Copyright (c) 2002-2004 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Common Public License v1.0
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/cpl-v10.html
+ * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors: 
  *   IBM - Initial API and implementation
  *
  * </copyright>
  *
- * $Id: XSDSimpleTypeDefinitionImpl.java,v 1.6 2004/11/09 17:05:15 emerks Exp $
+ * $Id: XSDSimpleTypeDefinitionImpl.java,v 1.3.2.1 2005/06/08 18:26:23 nickb Exp $
  */
 package org.eclipse.xsd.impl;
 
@@ -637,7 +637,7 @@ public class XSDSimpleTypeDefinitionImpl
     if (!(getContainer() instanceof XSDComplexTypeDefinition))
     {
       XSDSimpleTypeDefinition theBaseTypeDefinition = getBaseTypeDefinition();
-      if (theBaseTypeDefinition != null && (forceResolve || theBaseTypeDefinition.getContainer() == null))
+      if (theBaseTypeDefinition != null && theBaseTypeDefinition.getContainer() == null)
       {
         theBaseTypeDefinition = resolveSimpleTypeDefinition(theBaseTypeDefinition.getTargetNamespace(), theBaseTypeDefinition.getName());
       }
@@ -647,7 +647,7 @@ public class XSDSimpleTypeDefinitionImpl
         XSDSimpleTypeDefinition theItemTypeDefinition = getItemTypeDefinition();
         if (theItemTypeDefinition != null)
         {
-          if (forceResolve || theItemTypeDefinition.getContainer() == null)
+          if (theItemTypeDefinition.getContainer() == null)
           {
             XSDSimpleTypeDefinition newItemTypeDefinition = 
               resolveSimpleTypeDefinition(theItemTypeDefinition.getTargetNamespace(), theItemTypeDefinition.getName());
@@ -662,7 +662,7 @@ public class XSDSimpleTypeDefinitionImpl
           for (ListIterator theMemberTypeDefinitions = getMemberTypeDefinitions().listIterator(); theMemberTypeDefinitions.hasNext(); )
           {
             XSDSimpleTypeDefinition theMemberTypeDefinition = (XSDSimpleTypeDefinition)theMemberTypeDefinitions.next();
-            if (forceResolve || theMemberTypeDefinition.getContainer() == null)
+            if (theMemberTypeDefinition.getContainer() == null)
             {
               XSDSimpleTypeDefinition newMemberTypeDefinition = 
                 resolveSimpleTypeDefinition(theMemberTypeDefinition.getTargetNamespace(), theMemberTypeDefinition.getName());
@@ -1893,13 +1893,6 @@ public class XSDSimpleTypeDefinitionImpl
 
     if (!newContents.isEmpty())
     {
-      for (Iterator i = newContents.iterator(); i.hasNext(); )
-      {
-        if (!(i.next() instanceof XSDFacet))
-        {
-          i.remove();
-        }
-      }
       setListContentAndOrder(getFacetContents(), newContents);
     }
 
@@ -2066,8 +2059,7 @@ public class XSDSimpleTypeDefinitionImpl
   protected void adoptContent(EReference eReference, XSDConcreteComponent xsdConcreteComponent)
   {
     super.adoptContent(eReference, xsdConcreteComponent);
-    if (eReference == XSDPackage.eINSTANCE.getXSDSimpleTypeDefinition_Contents() ||
-          eReference == XSDPackage.eINSTANCE.getXSDSimpleTypeDefinition_FacetContents())
+    if (eReference == XSDPackage.eINSTANCE.getXSDSimpleTypeDefinition_Contents())
     {
       traverseToRootForPatching();
     }
@@ -2084,8 +2076,7 @@ public class XSDSimpleTypeDefinitionImpl
   protected void orphanContent(EReference eReference, XSDConcreteComponent xsdConcreteComponent)
   {
     super.orphanContent(eReference, xsdConcreteComponent);
-    if (eReference == XSDPackage.eINSTANCE.getXSDSimpleTypeDefinition_Contents() || 
-          eReference == XSDPackage.eINSTANCE.getXSDSimpleTypeDefinition_FacetContents())
+    if (eReference == XSDPackage.eINSTANCE.getXSDSimpleTypeDefinition_Contents())
     {
       traverseToRootForPatching();
     }

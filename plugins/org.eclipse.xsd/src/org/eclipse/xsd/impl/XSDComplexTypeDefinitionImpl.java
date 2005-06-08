@@ -3,16 +3,16 @@
  *
  * Copyright (c) 2002-2004 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Common Public License v1.0
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/cpl-v10.html
+ * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors: 
  *   IBM - Initial API and implementation
  *
  * </copyright>
  *
- * $Id: XSDComplexTypeDefinitionImpl.java,v 1.7 2004/12/11 12:01:19 emerks Exp $
+ * $Id: XSDComplexTypeDefinitionImpl.java,v 1.4.2.1 2005/06/08 18:26:23 nickb Exp $
  */
 package org.eclipse.xsd.impl;
 
@@ -989,7 +989,7 @@ public class XSDComplexTypeDefinitionImpl
   {
     super.patch();
     XSDTypeDefinition theBaseTypeDefinition = getBaseTypeDefinition();
-    if (theBaseTypeDefinition != null && (forceResolve || theBaseTypeDefinition.getContainer() == null))
+    if (theBaseTypeDefinition != null && theBaseTypeDefinition.getContainer() == null)
     {
       theBaseTypeDefinition = resolveTypeDefinition(theBaseTypeDefinition.getTargetNamespace(), theBaseTypeDefinition.getName());
     }
@@ -1221,7 +1221,7 @@ public class XSDComplexTypeDefinitionImpl
               }
               List remainingParticles = new ArrayList(extensionGroup.getParticles());
               remainingParticles.removeAll(newParticles);
-              if (!remainingParticles.isEmpty())
+              if (remainingParticles.isEmpty())
               {
                 extensionGroup.getParticles().removeAll(remainingParticles);
               }
@@ -1237,10 +1237,6 @@ public class XSDComplexTypeDefinitionImpl
               }
             }
           }
-        }
-        else if (isEmptyContent)
-        {
-          newContentTypeCategory = XSDContentTypeCategory.EMPTY_LITERAL;
         }
       }
       else

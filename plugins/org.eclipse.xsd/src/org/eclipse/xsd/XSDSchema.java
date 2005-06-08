@@ -3,16 +3,16 @@
  *
  * Copyright (c) 2002-2004 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Common Public License v1.0
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/cpl-v10.html
+ * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors: 
  *   IBM - Initial API and implementation
  *
  * </copyright>
  *
- * $Id: XSDSchema.java,v 1.4 2004/12/16 21:56:07 emerks Exp $
+ * $Id: XSDSchema.java,v 1.2.2.1 2005/06/08 18:26:22 nickb Exp $
  */
 package org.eclipse.xsd;
 
@@ -61,7 +61,7 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  *
  * @see org.eclipse.xsd.XSDPackage#getXSDSchema()
- * @model
+ * @model 
  * @generated
  */
 public interface XSDSchema extends XSDScope
@@ -107,7 +107,7 @@ public interface XSDSchema extends XSDScope
    * @return the value of the '<em>Schema Location</em>' attribute.
    * @see #setSchemaLocation(String)
    * @see org.eclipse.xsd.XSDPackage#getXSDSchema_SchemaLocation()
-   * @model
+   * @model 
    * @generated
    */
   String getSchemaLocation();
@@ -133,7 +133,7 @@ public interface XSDSchema extends XSDScope
    * @return the value of the '<em>Target Namespace</em>' attribute.
    * @see #setTargetNamespace(String)
    * @see org.eclipse.xsd.XSDPackage#getXSDSchema_TargetNamespace()
-   * @model
+   * @model 
    * @generated
    */
   String getTargetNamespace();
@@ -376,7 +376,7 @@ public interface XSDSchema extends XSDScope
    * @return the value of the '<em>Version</em>' attribute.
    * @see #setVersion(String)
    * @see org.eclipse.xsd.XSDPackage#getXSDSchema_Version()
-   * @model
+   * @model 
    * @generated
    */
   String getVersion();
@@ -774,19 +774,4 @@ public interface XSDSchema extends XSDScope
    * @see #update
    */
   void update();
-
-  /**
-   * Resolves QNames and performs analysis.
-   * If <code>force</code> is <code>true</code> even previously resolved QNames are resolved again.
-   * @param force whether previously resolved names should be resolved again.
-   * @see #isIncrementalUpdate
-   * @see #update
-   */
-  void update(boolean force);
-
-  /**
-   * Resets the effects of imports, includes, and redefines so that they will be reprocessed.
-   * @see #update
-   */
-  void reset();
 }

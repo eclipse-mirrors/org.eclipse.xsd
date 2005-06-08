@@ -3,16 +3,16 @@
  *
  * Copyright (c) 2002-2004 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Common Public License v1.0
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/cpl-v10.html
+ * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors: 
  *   IBM - Initial API and implementation
  *
  * </copyright>
  *
- * $Id: XSDConcreteComponent.java,v 1.3 2004/09/28 15:21:12 emerks Exp $
+ * $Id: XSDConcreteComponent.java,v 1.2.2.1 2005/06/08 18:26:22 nickb Exp $
  */
 package org.eclipse.xsd;
 
@@ -550,8 +550,6 @@ public interface XSDConcreteComponent extends EObject
   /**
    * Validates whether this component conforms to the constraints defined in the XML Schema standard.
    * {@link #getDiagnostics() Diagnostics} are produced to report any problems.
-   * The effect of calling this for a component not directly or indirectly contained by a {@link org.eclipse.xsd.XSDSchema schema}
-   * is undefined, and is likely to result in null pointer exceptions.
    * @see #getDiagnostics()
    * @see #clearDiagnostics()
    */

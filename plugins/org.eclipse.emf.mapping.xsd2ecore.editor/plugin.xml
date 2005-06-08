@@ -7,23 +7,23 @@
  *
  * Copyright (c) 2002-2004 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Common Public License v1.0
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/cpl-v10.html
+ * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
  *   IBM - Initial API and implementation
  *
  * </copyright>
  *
- * $Id: plugin.xml,v 1.9 2004/12/08 17:37:35 marcelop Exp $
+ * $Id: plugin.xml,v 1.7.2.1 2005/06/08 18:26:24 nickb Exp $
  */
 -->
 
 <plugin
     name = "%pluginName"
     id = "org.eclipse.emf.mapping.xsd2ecore.editor"
-    version = "2.1.0"
+    version = "2.0.1"
     provider-name = "%providerName" 
     class = "org.eclipse.emf.mapping.xsd2ecore.presentation.XSD2EcoreEditorPlugin$Implementation">
 
@@ -37,12 +37,13 @@
   <runtime>
     <library name="runtime/mapping.xsd2ecore.editor.jar">
       <export name="*"/>
+      <packages prefixes="org.eclipse.emf.mapping.xsd2ecore.presentation"/>
     </library>
   </runtime>
 
    <extension point="org.eclipse.ui.newWizards">
       <category
-            name="%_UI_EMFModelCreationWizard_label"
+            name="Example EMF Model Creation Wizards"
             id="org.eclipse.emf.ecore.Wizard.category.ID">
       </category>
       <wizard
@@ -60,7 +61,7 @@
 
    <extension point="org.eclipse.ui.editors">
       <editor
-            name="%_UI_XSDToEcoreModelEditor_label"
+            name="XSD to Ecore Model Editor"
             icon="icons/full/obj16/XSD2EcoreModelFile.gif"
             extensions="xsd2ecore"
             contributorClass="org.eclipse.emf.mapping.xsd2ecore.presentation.XSD2EcoreActionBarContributor"
@@ -75,7 +76,7 @@
          targetID="org.eclipse.emf.mapping.xsd2ecore.presentation.XSD2EcoreEditorID" >
       <menu
           id="org.eclipse.emf.mapping.xsd2ecore.presentation.XSD2EcoreMenuID"
-          label="%_UI_XSDToEcoreModelEditor_menuitem"
+          label="&amp;XSD to Ecore Mapping Editor"
           path="additions">
         <separator name="settings"/>
         <separator name="actions"/>
@@ -86,43 +87,43 @@
 
       <action
           id="org.eclipse.emf.mapping.action.TypeMatchMappingActionID"
-          label="%_UI_MatchMappingByType_menu_item"
+          label="&amp;Match Mapping by Type"
           menubarPath="org.eclipse.emf.mapping.xsd2ecore.presentation.XSD2EcoreMenuID/actions"
           toolbarPath="Normal/mapping-additions"
           icon="platform:/plugin/org.eclipse.emf.mapping/icons/full/ctool16/CreateNoneToOneMapping.gif"
-          tooltip="%_UI_MatchMappingByType_tooltip"
+          tooltip="Create child mappings automatically by name."
           class="org.eclipse.emf.mapping.action.TypeMatchMappingAction"/>
       <action
           id="org.eclipse.emf.mapping.action.NameMatchMappingActionID"
-          label="%_UI_MatchMappingByName_menu_item"
+          label="&amp;Match Mapping by Name"
           menubarPath="org.eclipse.emf.mapping.xsd2ecore.presentation.XSD2EcoreMenuID/actions"
           toolbarPath="Normal/mapping-additions"
           icon="platform:/plugin/org.eclipse.emf.mapping/icons/full/ctool16/CreateNoneToOneMapping.gif"
-          tooltip="%_UI_MatchMappingByName_tooltip"
+          tooltip="Create child mappings automatically by type."
           class ="org.eclipse.emf.mapping.action.NameMatchMappingAction"/>
       <action
           id="org.eclipse.emf.mapping.action.CreateOneSidedMappingActionID"
-          label="%_UI_CreateOneSideMapping_menu_item"
+          label="&amp;Create Mapping"
           menubarPath="org.eclipse.emf.mapping.xsd2ecore.presentation.XSD2EcoreMenuID/actions"
           toolbarPath="Normal/mapping-additions"
           icon="platform:/plugin/org.eclipse.emf.mapping/icons/full/ctool16/CreateNoneToOneMapping.gif"
-          tooltip="%_UI_CreateOneSideMapping_tooltip"
+          tooltip="Create a new mapping amoung the selected objects."
           class="org.eclipse.emf.mapping.action.CreateOneSidedMappingAction"/>
       <action
           id="org.eclipse.emf.mapping.action.CreateMappingActionID"
-          label="%_UI_CreateMapping_menu_item"
+          label="&amp;Create Mapping"
           menubarPath="org.eclipse.emf.mapping.xsd2ecore.presentation.XSD2EcoreMenuID/actions"
           toolbarPath="Normal/mapping-additions"
           icon="platform:/plugin/org.eclipse.emf.mapping/icons/full/ctool16/CreateNoneToOneMapping.gif"
-          tooltip="%_UI_CreateMapping_tooltip"
+          tooltip="Create a new mapping amoung the selected objects."
           class="org.eclipse.emf.mapping.action.CreateMappingAction"/>
       <action
           id="org.eclipse.emf.mapping.action.RemoveMappingActionID"
-          label="%_UI_RemoveMapping_menu_item"
+          label="&amp;Remove Mapping"
           menubarPath="org.eclipse.emf.mapping.xsd2ecore.presentation.XSD2EcoreMenuID/actions"
           toolbarPath="Normal/mapping-additions"
           icon="platform:/plugin/org.eclipse.emf.mapping/icons/full/ctool16/RemoveOneToOneMapping.gif"
-          tooltip="%_UI_RemoveMapping_tooltip"
+          tooltip="Remove the mapping associated with the selected objects."
           class="org.eclipse.emf.mapping.action.RemoveMappingAction"/>
     </editorContribution>
   </extension>

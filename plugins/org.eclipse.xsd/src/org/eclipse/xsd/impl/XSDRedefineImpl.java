@@ -3,16 +3,16 @@
  *
  * Copyright (c) 2002-2004 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Common Public License v1.0
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/cpl-v10.html
+ * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors: 
  *   IBM - Initial API and implementation
  *
  * </copyright>
  *
- * $Id: XSDRedefineImpl.java,v 1.6 2004/12/24 15:18:30 emerks Exp $
+ * $Id: XSDRedefineImpl.java,v 1.3.2.1 2005/06/08 18:26:23 nickb Exp $
  */
 package org.eclipse.xsd.impl;
 
@@ -332,19 +332,16 @@ public class XSDRedefineImpl
       super.patch();
       if (oldPendingSchemaLocation == null)
       {
-        List redefinitions = containingSchema.getSchemasToRedefine();
-        containingSchema.schemasToRedefine = null;
-        for (Iterator i = redefinitions.iterator(); i.hasNext(); )
+        for (Iterator i = containingSchema.getSchemasToRedefine().iterator(); i.hasNext(); )
         {
           XSDSchemaImpl schemaToRedefine = (XSDSchemaImpl)i.next();
           if (schemaToRedefine != containingSchema)
           {
-            schemaToRedefine.forceResolve = true;
             schemaToRedefine.patch();
-            schemaToRedefine.forceResolve = false;
             schemaToRedefine.pendingSchemaLocation = null;
           }
         }
+        containingSchema.schemasToRedefine = null;
       }
     }
     else
@@ -631,15 +628,7 @@ public class XSDRedefineImpl
     clonedRedefine.isReconciling = true;
 
     clonedRedefine.setSchemaLocation(getSchemaLocation());
-    
-    if (deep)
-    {
-      if (!getContents().isEmpty())
-      {
-        clonedRedefine.getContents().addAll(cloneConcreteComponents(getContents(), true, shareDOM));
-      }
-    }
-    
+
     if (shareDOM && getElement() != null)
     {
       clonedRedefine.setElement(getElement());

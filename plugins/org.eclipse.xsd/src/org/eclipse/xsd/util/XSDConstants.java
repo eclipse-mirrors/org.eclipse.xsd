@@ -3,16 +3,16 @@
  *
  * Copyright (c) 2002-2004 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Common Public License v1.0
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/cpl-v10.html
+ * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors: 
  *   IBM - Initial API and implementation
  *
  * </copyright>
  *
- * $Id: XSDConstants.java,v 1.3 2004/11/17 12:57:46 emerks Exp $
+ * $Id: XSDConstants.java,v 1.2.2.1 2005/06/08 18:26:24 nickb Exp $
  */
 package org.eclipse.xsd.util;
 
@@ -72,6 +72,11 @@ public class XSDConstants
    * The value <code>"http://www.w3.org/2001/XMLSchema-instance"</code>.
    */
   public static final String SCHEMA_INSTANCE_URI_2001 = "http://www.w3.org/2001/XMLSchema-instance";
+
+  /**
+   * @deprecated
+   */
+  //public static final String SCHEMA_FOR_SCHEMA_URI = SCHEMA_FOR_SCHEMA_URI_2001;
 
   /**
    * Returns whether the given namespace is (one of) the XML namespace(s).

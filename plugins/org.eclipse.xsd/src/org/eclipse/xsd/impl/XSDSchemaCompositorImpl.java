@@ -3,16 +3,16 @@
  *
  * Copyright (c) 2002-2004 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Common Public License v1.0
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/cpl-v10.html
+ * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors: 
  *   IBM - Initial API and implementation
  *
  * </copyright>
  *
- * $Id: XSDSchemaCompositorImpl.java,v 1.4 2004/12/26 13:34:50 emerks Exp $
+ * $Id: XSDSchemaCompositorImpl.java,v 1.1.2.1 2005/06/08 18:26:23 nickb Exp $
  */
 package org.eclipse.xsd.impl;
 
@@ -27,7 +27,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.xsd.XSDPackage;
@@ -66,17 +65,6 @@ public abstract class XSDSchemaCompositorImpl
   {
     super();
   }
-
-  public void reset()
-  {
-    super.reset();
-    if (incorporatedSchema != resolvedSchema && incorporatedSchema != null && incorporatedSchema.eContainer() != null)
-    {
-      EcoreUtil.remove(incorporatedSchema);
-      incorporatedSchema.reset();
-    }
-  }
-
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

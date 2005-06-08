@@ -3,16 +3,16 @@
  *
  * Copyright (c) 2002-2004 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Common Public License v1.0
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/cpl-v10.html
+ * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors: 
  *   IBM - Initial API and implementation
  *
  * </copyright>
  *
- * $Id: XSDSchemaDirective.java,v 1.2 2004/12/16 21:56:07 emerks Exp $
+ * $Id: XSDSchemaDirective.java,v 1.1.2.1 2005/06/08 18:26:22 nickb Exp $
  */
 package org.eclipse.xsd;
 
@@ -40,8 +40,7 @@ package org.eclipse.xsd;
  * @model abstract="true"
  * @generated
  */
-public interface XSDSchemaDirective extends XSDSchemaContent
-{
+public interface XSDSchemaDirective extends XSDSchemaContent {
   /**
    * Returns the value of the '<em><b>Schema Location</b></em>' attribute.
    * <!-- begin-user-doc -->
@@ -59,7 +58,7 @@ public interface XSDSchemaDirective extends XSDSchemaContent
    * @return the value of the '<em>Schema Location</em>' attribute.
    * @see #setSchemaLocation(String)
    * @see org.eclipse.xsd.XSDPackage#getXSDSchemaDirective_SchemaLocation()
-   * @model
+   * @model 
    * @generated
    */
   String getSchemaLocation();

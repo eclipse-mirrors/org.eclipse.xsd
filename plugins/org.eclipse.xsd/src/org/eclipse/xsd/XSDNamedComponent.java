@@ -3,16 +3,16 @@
  *
  * Copyright (c) 2002-2004 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Common Public License v1.0
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/cpl-v10.html
+ * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors: 
  *   IBM - Initial API and implementation
  *
  * </copyright>
  *
- * $Id: XSDNamedComponent.java,v 1.3 2004/12/16 21:56:07 emerks Exp $
+ * $Id: XSDNamedComponent.java,v 1.2.2.1 2005/06/08 18:26:23 nickb Exp $
  */
 package org.eclipse.xsd;
 
@@ -49,8 +49,7 @@ package org.eclipse.xsd;
  * @model abstract="true"
  * @generated
  */
-public interface XSDNamedComponent extends XSDComponent
-{
+public interface XSDNamedComponent extends XSDComponent {
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
@@ -71,7 +70,7 @@ public interface XSDNamedComponent extends XSDComponent
    * @return the value of the '<em>Name</em>' attribute.
    * @see #setName(String)
    * @see org.eclipse.xsd.XSDPackage#getXSDNamedComponent_Name()
-   * @model
+   * @model 
    * @generated
    */
   String getName();
@@ -110,7 +109,7 @@ public interface XSDNamedComponent extends XSDComponent
    * @return the value of the '<em>Target Namespace</em>' attribute.
    * @see #setTargetNamespace(String)
    * @see org.eclipse.xsd.XSDPackage#getXSDNamedComponent_TargetNamespace()
-   * @model
+   * @model 
    * @generated
    */
   String getTargetNamespace();

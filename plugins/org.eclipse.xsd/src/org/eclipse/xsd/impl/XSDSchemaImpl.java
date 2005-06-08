@@ -3,16 +3,16 @@
  *
  * Copyright (c) 2002-2004 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Common Public License v1.0
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/cpl-v10.html
+ * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors: 
  *   IBM - Initial API and implementation
  *
  * </copyright>
  *
- * $Id: XSDSchemaImpl.java,v 1.12 2004/12/24 15:19:45 emerks Exp $
+ * $Id: XSDSchemaImpl.java,v 1.7.2.1 2005/06/08 18:26:23 nickb Exp $
  */
 package org.eclipse.xsd.impl;
 
@@ -1450,16 +1450,12 @@ public class XSDSchemaImpl
   {
     if (!isReconciling && isIncrementalUpdate)
     {
-      isReconciling = true;
       patch();
-      isReconciling = false;
     }
   }
 
   protected void patch()
   {
-    incorporatingSchemas = null;
-    
     if (XSDConstants.isSchemaForSchemaNamespace(getTargetNamespace()))
     {
       XSDSchema magicSchemaForSchema = getMagicSchemaForSchema(getTargetNamespace());
@@ -1481,51 +1477,14 @@ public class XSDSchemaImpl
     }
 
     super.patch();
-    
-    List schemasToPatch = new ArrayList();
-    schemasToPatch.add(this);
-    for (int i = 0; i < schemasToPatch.size(); ++i)
-    {
-      XSDSchema xsdSchema = (XSDSchema)schemasToPatch.get(i); 
-      for (Iterator j = xsdSchema.getContents().iterator(); j.hasNext(); )
-      {
-        XSDConcreteComponent content = (XSDConcreteComponent)j.next();
-        if (content instanceof XSDSchemaDirective)
-        {
-          if (content instanceof XSDSchemaCompositor)
-          {
-            XSDSchemaCompositor xsdSchemaCompositor = (XSDSchemaCompositor)content;
-            XSDSchemaImpl xsdIncorporatedSchema =  (XSDSchemaImpl)xsdSchemaCompositor.getIncorporatedSchema();
-            if (xsdIncorporatedSchema != null && !schemasToPatch.contains(xsdIncorporatedSchema))
-            {
-              schemasToPatch.add(xsdIncorporatedSchema);
-              xsdIncorporatedSchema.patchContents();
-            }
-          }
-        }
-        else if (!(content instanceof XSDAnnotation))
-        {
-          break;
-        }
-      }
-    }
-    
-    //*/
     analyze();
-  }
-  
-  protected void patchContents()
-  {
-    super.patch();
   }
 
   protected void traverseToRootForAnalysis()
   {
     if (!isReconciling && isIncrementalUpdate)
     {
-      isReconciling = true;
       analyze();
-      isReconciling = false;
     }
   }
 
@@ -2047,8 +2006,6 @@ public class XSDSchemaImpl
     return simpleTypeIdMap;
   }
 
-  protected List incorporatingSchemas;
-  
   /**
    * This returns set of schemas with the given namespace as it's target namespace.
    */
@@ -2061,31 +2018,7 @@ public class XSDSchemaImpl
 
     if (namespace == null ? getTargetNamespace() == null || hasRetargetedNamespace() : namespace.equals(getTargetNamespace()))
     {
-      if (incorporatingSchemas == null)
-      {
-        List visited = new ArrayList();
-        visited.add(this);
-        incorporatingSchemas = new ArrayList();
-        incorporatingSchemas.add(this);
-        for (int i = 0; i < visited.size(); ++i)
-        {
-          XSDSchemaImpl xsdSchema = (XSDSchemaImpl)visited.get(i);
-          for (Iterator j = xsdSchema.getReferencingDirectives().iterator(); j.hasNext(); )
-          {
-            XSDSchemaDirective xsdSchemaDirective = (XSDSchemaDirective)j.next(); 
-            if (xsdSchemaDirective instanceof XSDSchemaCompositor && ((XSDSchemaCompositor)xsdSchemaDirective).getIncorporatedSchema() == xsdSchema)
-            {
-              XSDSchema incorporatingSchema = xsdSchemaDirective.getSchema();
-              if (incorporatingSchema != null && !visited.contains(incorporatingSchema))
-              {
-                visited.add(incorporatingSchema);
-                incorporatingSchemas.add(incorporatingSchema);
-              }
-            }
-          }
-        }
-      }
-      return incorporatingSchemas;
+      return Collections.singleton(this);
     }
     else if (XSDConstants.isSchemaInstanceNamespace(namespace))
     {
@@ -2128,14 +2061,13 @@ public class XSDSchemaImpl
    */
   protected XSDNamedComponent resolveNamedComponent(EReference namedComponentsRefReference, String namespace, String localName)
   {
-    Collection resolvedSchemas = resolveSchema(namespace);
-    for (Iterator i = resolveSchema(namespace).iterator(); i.hasNext(); )
+    for (Iterator resolvedSchemas = resolveSchema(namespace).iterator(); resolvedSchemas.hasNext(); )
     {
-      XSDSchema resolvedSchema = (XSDSchema)i.next();
+      XSDSchema resolvedSchema = (XSDSchema)resolvedSchemas.next();
       XSDNamedComponent xsdNamedComponent = 
         XSDNamedComponentImpl.findInSortedList
           ((List)resolvedSchema.eGet(namedComponentsRefReference), namespace, localName);
-      if (xsdNamedComponent == null && namespace == null && resolvedSchemas.contains(this) && resolvedSchema.getTargetNamespace() != null)
+      if (xsdNamedComponent == null && namespace == null && resolvedSchema == this && getTargetNamespace() != null)
       {
          xsdNamedComponent = 
            XSDNamedComponentImpl.findInSortedList
@@ -2898,44 +2830,6 @@ public class XSDSchemaImpl
     isIncrementalUpdate = oldIsIncrementalUpdate;
   }
 
-  public void update(boolean force)
-  {
-    forceResolve = force;
-    update();
-    forceResolve = false;
-  }
-
-  public void reset()
-  {
-    super.reset();
-
-    redefinitionMap.clear();
-
-    reset(getAttributeDeclarations());
-    reset(getAttributeGroupDefinitions());
-    reset(getElementDeclarations());
-    reset(getModelGroupDefinitions());
-    reset(getTypeDefinitions());
-    reset(getNotationDeclarations());
-    reset(getIdentityConstraintDefinitions());
-
-    forceResolve = true;
-    update();
-    forceResolve = false;
-  }
-
-  protected void reset(List components)
-  {
-    for (Iterator i = components.iterator(); i.hasNext(); )
-    {
-      XSDConcreteComponent xsdConcreteComponent = (XSDConcreteComponent)i.next();
-      if (xsdConcreteComponent.getSchema() != this)
-      {
-        i.remove();
-      }
-    }
-  }
-
   protected String pendingSchemaLocation;
   public String getPendingSchemaLocation()
   {
@@ -3007,11 +2901,7 @@ public class XSDSchemaImpl
           for (Iterator i = incorporatedVersion.getReferencingDirectives().iterator(); i.hasNext(); )
           {
             XSDSchemaDirective xsdSchemaDirective = (XSDSchemaDirective)i.next();
-            // This was commented out to fix 72109, i.e., to prevent stack overflow.
-            // There really does need to be some kind of guard here in the general case.
-            // But it's very challenging to fix this, so it's better to not overflow 
-            // and to have some other unreported corner case be wrong.
-            // if (xsdRedefine.getSchema().getOriginalVersion() == xsdSchemaDirective.getSchema())
+            if (xsdRedefine.getSchema().getOriginalVersion() == xsdSchemaDirective.getSchema())
             {
               ((XSDSchemaImpl)incorporatedVersion).incorporate(xsdRedefine);
               return incorporatedVersion;
@@ -3159,17 +3049,14 @@ public class XSDSchemaImpl
           {
             XSDComplexTypeDefinition redefinedComplexTypeDefinition = 
               resolveComplexTypeDefinition(xsdComplexTypeDefinition.getName());
-            if (xsdComplexTypeDefinition != redefinedComplexTypeDefinition)
+            for (Iterator i = getSchemasToRedefine().iterator(); i.hasNext(); )
             {
-              for (Iterator i = getSchemasToRedefine().iterator(); i.hasNext(); )
+              XSDSchemaImpl schemaToRedefine = (XSDSchemaImpl)i.next();
+              int index = schemaToRedefine.getTypeDefinitions().indexOf(redefinedComplexTypeDefinition);
+              if (index != -1)
               {
-                XSDSchemaImpl schemaToRedefine = (XSDSchemaImpl)i.next();
-                int index = schemaToRedefine.getTypeDefinitions().indexOf(redefinedComplexTypeDefinition);
-                if (index != -1)
-                {
-                  schemaToRedefine.getTypeDefinitions().set(index, xsdComplexTypeDefinition);
-                  schemaToRedefine.redefinitionMap.put(xsdComplexTypeDefinition, redefinedComplexTypeDefinition);
-                }
+                schemaToRedefine.getTypeDefinitions().set(index, xsdComplexTypeDefinition);
+                schemaToRedefine.redefinitionMap.put(xsdComplexTypeDefinition, redefinedComplexTypeDefinition);
               }
             }
             return this;
@@ -3198,19 +3085,19 @@ public class XSDSchemaImpl
       }
     }
 
-    if (((XSDSchemaImpl)redefiningSchema).getPendingSchemaLocation() != null)
+    if (getPendingSchemaLocation() != null)
     {
-      ((XSDSchemaImpl)redefiningSchema).getSchemasToRedefine().addAll(getSchemasToRedefine());
+      if (((XSDSchemaImpl)redefiningSchema).getPendingSchemaLocation() != null)
+      {
+        ((XSDSchemaImpl)redefiningSchema).getSchemasToRedefine().addAll(getSchemasToRedefine());
+      }
     }
-
-    if (getPendingSchemaLocation() == null)
+    else
     {
       patch();
     }
 
     propogateComponents(redefiningSchema);
-
-    ((XSDSchemaImpl)redefiningSchema).getRedefinitionMap().putAll(getRedefinitionMap());
   }
 
   public XSDConcreteComponent cloneConcreteComponent(boolean deep, boolean shareDOM)

@@ -3,16 +3,16 @@
  *
  * Copyright (c) 2002-2004 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Common Public License v1.0
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/cpl-v10.html
+ * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors: 
  *   IBM - Initial API and implementation
  *
  * </copyright>
  *
- * $Id: XSDItemProviderAdapterFactory.java,v 1.4 2004/10/19 21:24:51 emerks Exp $
+ * $Id: XSDItemProviderAdapterFactory.java,v 1.3.2.1 2005/06/08 18:26:23 nickb Exp $
  */
 package org.eclipse.xsd.provider;
 
@@ -1163,6 +1163,13 @@ public class XSDItemProviderAdapterFactory
     return null;
   }
 
+  public Adapter adaptNew(Notifier object, Object type)
+  {
+    Adapter result = super.adaptNew(object, type);
+    disposable.add(result);
+    return result;
+  }
+
   /**
    * This adds a listener.
    */
@@ -1189,15 +1196,6 @@ public class XSDItemProviderAdapterFactory
     if (parentAdapterFactory != null)
     {
       parentAdapterFactory.fireNotifyChanged(notification);
-    }
-  }
-
-  protected void associate(Adapter adapter, Notifier target)
-  {
-    super.associate(adapter, target);
-    if (adapter != null)
-    {
-      disposable.add(adapter);
     }
   }
 

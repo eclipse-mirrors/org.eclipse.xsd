@@ -3,16 +3,16 @@
  *
  * Copyright (c) 2002-2004 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Common Public License v1.0
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/cpl-v10.html
+ * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
  *   IBM - Initial API and implementation
  *
  * </copyright>
  *
- * $Id: EcoreXMLSchemaBuilder.java,v 1.3 2004/10/29 19:31:10 marcelop Exp $
+ * $Id: EcoreXMLSchemaBuilder.java,v 1.2.2.1 2005/06/08 18:26:24 nickb Exp $
  */
 package org.eclipse.xsd.ecore;
 
@@ -287,16 +287,16 @@ public class EcoreXMLSchemaBuilder extends MapBuilder
    * Each EEnum is mapped to a schema simple type that restricts the string simple type;
    * the schema type has an enumeration facet for each EEnumLiteral.
    */
-  protected void processEnum(EEnum eEnum)
+  protected void processEnum(EEnum enum)
   {
     XSDSimpleTypeDefinition enumType = XSDFactory.eINSTANCE.createXSDSimpleTypeDefinition();
-    enumType.setName(getName(eEnum));
+    enumType.setName(getName(enum));
     enumType.setBaseTypeDefinition(xsdSchema.getSchemaForSchema().resolveSimpleTypeDefinition("NCName"));
     xsdSchema.getContents().add(enumType);
 
-    map(enumType, eEnum);
+    map(enumType, enum);
 
-    for (Iterator literals = eEnum.getELiterals().iterator(); literals.hasNext();)
+    for (Iterator literals = enum.getELiterals().iterator(); literals.hasNext();)
     {
       EEnumLiteral literal = (EEnumLiteral)literals.next();
       XSDEnumerationFacet facet = XSDFactory.eINSTANCE.createXSDEnumerationFacet();

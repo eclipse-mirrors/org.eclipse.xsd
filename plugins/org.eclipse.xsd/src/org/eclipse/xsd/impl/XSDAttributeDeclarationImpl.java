@@ -3,16 +3,16 @@
  *
  * Copyright (c) 2002-2004 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Common Public License v1.0
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/cpl-v10.html
+ * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors: 
  *   IBM - Initial API and implementation
  *
  * </copyright>
  *
- * $Id: XSDAttributeDeclarationImpl.java,v 1.5 2004/10/07 12:15:00 emerks Exp $
+ * $Id: XSDAttributeDeclarationImpl.java,v 1.4.2.1 2005/06/08 18:26:23 nickb Exp $
  */
 package org.eclipse.xsd.impl;
 
@@ -183,7 +183,7 @@ public class XSDAttributeDeclarationImpl
     if (theResolvedAttributeDeclaration == this)
     {
       XSDSimpleTypeDefinition typeDefinition = getTypeDefinition();
-      if (typeDefinition != null && (forceResolve || typeDefinition.getContainer() == null))
+      if (typeDefinition != null && typeDefinition.getContainer() == null)
       {
         XSDSimpleTypeDefinition newTypeDefinition = 
           resolveSimpleTypeDefinition(typeDefinition.getTargetNamespace(), typeDefinition.getName());

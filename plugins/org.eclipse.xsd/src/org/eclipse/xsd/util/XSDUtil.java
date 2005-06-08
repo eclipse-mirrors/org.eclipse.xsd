@@ -3,23 +3,22 @@
  *
  * Copyright (c) 2002-2004 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Common Public License v1.0
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/cpl-v10.html
+ * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors: 
  *   IBM - Initial API and implementation
  *
  * </copyright>
  *
- * $Id: XSDUtil.java,v 1.4 2004/12/27 12:50:48 emerks Exp $
+ * $Id: XSDUtil.java,v 1.2.2.1 2005/06/08 18:26:24 nickb Exp $
  */
 package org.eclipse.xsd.util;
 
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EObject;
@@ -30,7 +29,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import org.eclipse.xsd.XSDNamedComponent;
 import org.eclipse.xsd.XSDSchema;
-import org.eclipse.xsd.impl.XSDNamedComponentImpl;
 import org.eclipse.xsd.impl.XSDSchemaImpl;
 
 
@@ -353,19 +351,5 @@ public final class XSDUtil extends XSDConstants
   public static interface ByteSequence
   {
     byte[] getBytes();
-  }
-
-  /**
-   * Returns the matching named component in the sorted list of named components, 
-   * or <code>null</null> if there isn't one.
-   * This list is expected to be one of a {@link XSDSchema schema's} list of named components.
-   * @param xsdNamedComponents a sorted lists of named components.
-   * @param namespace the namespace to search
-   * @param name the name to search
-   * @return the matching component, if any.
-   */
-  public static XSDNamedComponent findInSortedList(List xsdNamedComponents, String namespace, String name)
-  {
-    return XSDNamedComponentImpl.findInSortedList(xsdNamedComponents, namespace, name);
   }
 }

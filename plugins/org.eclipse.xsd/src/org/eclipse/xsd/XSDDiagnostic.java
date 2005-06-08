@@ -3,16 +3,16 @@
  *
  * Copyright (c) 2002-2004 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Common Public License v1.0
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/cpl-v10.html
+ * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors: 
  *   IBM - Initial API and implementation
  *
  * </copyright>
  *
- * $Id: XSDDiagnostic.java,v 1.2 2004/12/16 21:56:07 emerks Exp $
+ * $Id: XSDDiagnostic.java,v 1.1.2.1 2005/06/08 18:26:22 nickb Exp $
  */
 package org.eclipse.xsd;
 
@@ -45,7 +45,7 @@ import org.eclipse.emf.ecore.resource.Resource;
  * </p>
  *
  * @see org.eclipse.xsd.XSDPackage#getXSDDiagnostic()
- * @model
+ * @model 
  * @generated
  */
 public interface XSDDiagnostic extends XSDConcreteComponent, Resource.Diagnostic
@@ -71,7 +71,7 @@ public interface XSDDiagnostic extends XSDConcreteComponent, Resource.Diagnostic
    * @see org.eclipse.xsd.XSDDiagnosticSeverity
    * @see #setSeverity(XSDDiagnosticSeverity)
    * @see org.eclipse.xsd.XSDPackage#getXSDDiagnostic_Severity()
-   * @model
+   * @model 
    * @generated
    */
   XSDDiagnosticSeverity getSeverity();
@@ -97,7 +97,7 @@ public interface XSDDiagnostic extends XSDConcreteComponent, Resource.Diagnostic
    * @return the value of the '<em>Message</em>' attribute.
    * @see #setMessage(String)
    * @see org.eclipse.xsd.XSDPackage#getXSDDiagnostic_Message()
-   * @model
+   * @model 
    * @generated
    */
   String getMessage();
@@ -122,7 +122,7 @@ public interface XSDDiagnostic extends XSDConcreteComponent, Resource.Diagnostic
    * @return the value of the '<em>Location URI</em>' attribute.
    * @see #setLocationURI(String)
    * @see org.eclipse.xsd.XSDPackage#getXSDDiagnostic_LocationURI()
-   * @model
+   * @model 
    * @generated
    */
   String getLocationURI();
@@ -224,7 +224,7 @@ public interface XSDDiagnostic extends XSDConcreteComponent, Resource.Diagnostic
    * @return the value of the '<em>Annotation URI</em>' attribute.
    * @see #setAnnotationURI(String)
    * @see org.eclipse.xsd.XSDPackage#getXSDDiagnostic_AnnotationURI()
-   * @model
+   * @model 
    * @generated
    */
   String getAnnotationURI();

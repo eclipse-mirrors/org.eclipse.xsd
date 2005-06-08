@@ -3,16 +3,16 @@
  *
  * Copyright (c) 2002-2004 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Common Public License v1.0
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/cpl-v10.html
+ * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
  *   IBM - Initial API and implementation
  *
  * </copyright>
  *
- * $Id: XSD2EcoreMappingRootImpl.java,v 1.2 2004/12/16 21:54:40 emerks Exp $
+ * $Id: XSD2EcoreMappingRootImpl.java,v 1.1.2.1 2005/06/08 18:26:24 nickb Exp $
  */
 package org.eclipse.emf.mapping.xsd2ecore.impl;
 
@@ -129,12 +129,12 @@ public class XSD2EcoreMappingRootImpl extends MappingRootImpl implements XSD2Eco
       switch (eContainerFeatureID)
       {
         case XSD2EcorePackage.XSD2_ECORE_MAPPING_ROOT__NESTED_IN:
-          return eContainer.eInverseRemove(this, MappingPackage.MAPPING__NESTED, Mapping.class, msgs);
+          return ((InternalEObject)eContainer).eInverseRemove(this, MappingPackage.MAPPING__NESTED, Mapping.class, msgs);
         default:
           return eDynamicBasicRemoveFromContainer(msgs);
       }
     }
-    return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+    return ((InternalEObject)eContainer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
   }
 
   /**
