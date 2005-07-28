@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: XSDFloatType.java,v 1.3.2.1 2005/06/08 18:26:23 nickb Exp $
+ * $Id: XSDFloatType.java,v 1.3.2.2 2005/07/28 23:24:36 nickb Exp $
  */
 package org.eclipse.xsd.impl.type;
 
@@ -33,6 +33,6 @@ public class XSDFloatType extends XSDAnySimpleType
 
   public int compareValues(Object value1, Object value2)
   {
-    return ((Float)value1).compareTo(value2);
+    return ((Float)value1).compareTo((Float)value2);
   }
 }
