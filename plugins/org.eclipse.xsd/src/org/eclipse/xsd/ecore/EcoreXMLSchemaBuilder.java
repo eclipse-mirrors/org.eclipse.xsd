@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: EcoreXMLSchemaBuilder.java,v 1.2.2.1 2005/06/08 18:26:24 nickb Exp $
+ * $Id: EcoreXMLSchemaBuilder.java,v 1.2.2.2 2005/07/28 21:51:54 nickb Exp $
  */
 package org.eclipse.xsd.ecore;
 
@@ -287,16 +287,16 @@ public class EcoreXMLSchemaBuilder extends MapBuilder
    * Each EEnum is mapped to a schema simple type that restricts the string simple type;
    * the schema type has an enumeration facet for each EEnumLiteral.
    */
-  protected void processEnum(EEnum enum)
+  protected void processEnum(EEnum eEnum)
   {
     XSDSimpleTypeDefinition enumType = XSDFactory.eINSTANCE.createXSDSimpleTypeDefinition();
-    enumType.setName(getName(enum));
+    enumType.setName(getName(eEnum));
     enumType.setBaseTypeDefinition(xsdSchema.getSchemaForSchema().resolveSimpleTypeDefinition("NCName"));
     xsdSchema.getContents().add(enumType);
 
-    map(enumType, enum);
+    map(enumType, eEnum);
 
-    for (Iterator literals = enum.getELiterals().iterator(); literals.hasNext();)
+    for (Iterator literals = eEnum.getELiterals().iterator(); literals.hasNext();)
     {
       EEnumLiteral literal = (EEnumLiteral)literals.next();
       XSDEnumerationFacet facet = XSDFactory.eINSTANCE.createXSDEnumerationFacet();
