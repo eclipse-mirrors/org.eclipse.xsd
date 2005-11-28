@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: XSDConstants.java,v 1.2.2.2 2005/07/28 23:40:28 nickb Exp $
+ * $Id: XSDConstants.java,v 1.2.2.3 2005/11/28 19:35:19 nickb Exp $
  */
 package org.eclipse.xsd.util;
 
@@ -1396,6 +1396,10 @@ public class XSDConstants
       if (elementNode.hasAttribute(namespaceAttribute))
       {
         String namespace = elementNode.getAttribute(namespaceAttribute);
+        if ("".equals(namespace))
+        {
+          break;
+        }
         String localName = qName == null ? "" : qName.substring(index + 1);
         return namespace + "#" + localName;
       }
