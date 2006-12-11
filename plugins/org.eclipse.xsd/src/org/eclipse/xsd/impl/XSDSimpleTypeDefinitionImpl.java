@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: XSDSimpleTypeDefinitionImpl.java,v 1.20 2006/08/17 19:56:46 emerks Exp $
+ * $Id: XSDSimpleTypeDefinitionImpl.java,v 1.20.2.1 2006/12/11 16:13:40 emerks Exp $
  */
 package org.eclipse.xsd.impl;
 
@@ -1236,9 +1236,16 @@ public class XSDSimpleTypeDefinitionImpl
       
               checkComplexContent(xsdComplexTypeDefinition, XSDConstants.PART2, "element-restriction", childElement);
 
-              if (childElement.hasAttributeNS(null, XSDConstants.BASE_ATTRIBUTE) && !getContents().isEmpty())
+              if (childElement.hasAttributeNS(null, XSDConstants.BASE_ATTRIBUTE)) 
               {
-                createDiagnostic(XSDDiagnosticSeverity.ERROR_LITERAL, "src-restriction-base-or-simpleType");
+                if (!getContents().isEmpty())
+                {
+                  createDiagnostic(XSDDiagnosticSeverity.ERROR_LITERAL, "src-restriction-base-or-simpleType");
+                }
+              }
+              else if (getContents().isEmpty())
+              {
+                createDiagnostic(XSDDiagnosticSeverity.ERROR_LITERAL, "src-restriction-base-or-simpleType.0");
               }
 
               break;
@@ -1306,9 +1313,19 @@ public class XSDSimpleTypeDefinitionImpl
       
               checkComplexContent(xsdComplexTypeDefinition, XSDConstants.PART2, "element-list", childElement);
 
-              if (childElement.hasAttributeNS(null, XSDConstants.ITEMTYPE_ATTRIBUTE) && !getContents().isEmpty())
+              if (childElement.hasAttributeNS(null, XSDConstants.ITEMTYPE_ATTRIBUTE))
               {
-                createDiagnostic(XSDDiagnosticSeverity.ERROR_LITERAL, "src-list-itemType-or-simpleType");
+                if (!getContents().isEmpty())
+                {
+                  createDiagnostic(XSDDiagnosticSeverity.ERROR_LITERAL, "src-list-itemType-or-simpleType");
+                }
+              }
+              else
+              {
+                if (getContents().isEmpty())
+                {
+                  createDiagnostic(XSDDiagnosticSeverity.ERROR_LITERAL, "src-list-itemType-or-simpleType.0");
+                }
               }
 
               break;
