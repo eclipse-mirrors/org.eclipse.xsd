@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: XSDSimpleTypeDefinitionImpl.java,v 1.20.2.1 2006/12/11 16:13:40 emerks Exp $
+ * $Id: XSDSimpleTypeDefinitionImpl.java,v 1.20.2.2 2007/01/17 15:29:08 emerks Exp $
  */
 package org.eclipse.xsd.impl;
 
@@ -1625,7 +1625,11 @@ public class XSDSimpleTypeDefinitionImpl
   {
     if (getContainer() instanceof XSDComplexTypeDefinition)
     {
-      ((XSDComplexTypeDefinitionImpl)getContainer()).handleNewBaseTypeDefinition(newComplexBaseTypeDefinition);
+      XSDComplexTypeDefinitionImpl xsdComplexTypeDefinition = (XSDComplexTypeDefinitionImpl)getContainer();
+      boolean oldIsReconciling = xsdComplexTypeDefinition.isReconciling;
+      xsdComplexTypeDefinition.isReconciling = isReconciling;
+      xsdComplexTypeDefinition.handleNewBaseTypeDefinition(newComplexBaseTypeDefinition);
+      xsdComplexTypeDefinition.isReconciling = oldIsReconciling;
     }
   }
 
