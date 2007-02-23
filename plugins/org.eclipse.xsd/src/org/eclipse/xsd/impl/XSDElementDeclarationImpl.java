@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: XSDElementDeclarationImpl.java,v 1.16.2.1 2007/02/02 14:00:33 emerks Exp $
+ * $Id: XSDElementDeclarationImpl.java,v 1.16.2.2 2007/02/23 22:34:06 emerks Exp $
  */
 package org.eclipse.xsd.impl;
 
@@ -552,7 +552,7 @@ public class XSDElementDeclarationImpl
         XSDTypeDefinition newTypeDefinition = resolveTypeDefinition(typeDefinition.getTargetNamespace(), typeDefinition.getName());
         if (forceResolve || newTypeDefinition.getContainer() != null && newTypeDefinition != typeDefinition)
         {
-          setTypeDefinition(newTypeDefinition);
+          setTypeDefinitionGen(newTypeDefinition);
         }
       }
 
@@ -1077,12 +1077,18 @@ public class XSDElementDeclarationImpl
       {
         if (changedElement.hasAttributeNS(null, XSDConstants.TYPE_ATTRIBUTE))
         {
+          isTypeExplicit = true;
           XSDTypeDefinition newTypeDefinition =
             resolveTypeDefinitionURI(XSDConstants.lookupQNameForAttribute(changedElement, XSDConstants.TYPE_ATTRIBUTE));
           if (newTypeDefinition != getTypeDefinition())
           {
             setTypeDefinition(newTypeDefinition);
           }
+        }
+        else if (getAnonymousTypeDefinition() != getTypeDefinition())
+        {
+          isTypeExplicit = false;
+          setTypeDefinitionGen(resolveSimpleTypeDefinition(changedElement.getNamespaceURI(), "anyType"));
         }
 
         if (changedElement.hasAttributeNS(null, XSDConstants.NILLABLE_ATTRIBUTE))
@@ -1248,12 +1254,13 @@ public class XSDElementDeclarationImpl
 
       if (theElement.hasAttributeNS(null, XSDConstants.TYPE_ATTRIBUTE))
       {
+        isTypeExplicit = true;
         newTypeDefinition = resolveTypeDefinitionURI(XSDConstants.lookupQNameForAttribute(theElement, XSDConstants.TYPE_ATTRIBUTE));
       }
 
       if (newTypeDefinition != null && newTypeDefinition != getTypeDefinition())
       {
-        setTypeDefinition(newTypeDefinition);
+        setTypeDefinitionGen(newTypeDefinition);
       }
     }
   }
@@ -1410,10 +1417,9 @@ public class XSDElementDeclarationImpl
         XSDTypeDefinition theTypeDefinition = getTypeDefinition();
         XSDTypeDefinition theAnonymousTypeDefinition = getAnonymousTypeDefinition();
 
-        if (theTypeDefinition == null ||
-              theTypeDefinition == theAnonymousTypeDefinition ||
-              XSDConstants.isURType(theTypeDefinition) || 
-              !isTypeExplicit)
+        if (!isTypeExplicit ||
+              theTypeDefinition == null ||
+              theTypeDefinition == theAnonymousTypeDefinition)
         {
           if (theElement != null)
           {
