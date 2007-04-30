@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: XSDConcreteComponentImpl.java,v 1.15 2006/08/17 19:52:34 emerks Exp $
+ * $Id: XSDConcreteComponentImpl.java,v 1.15.2.1 2007/04/30 15:25:54 emerks Exp $
  */
 package org.eclipse.xsd.impl;
 
@@ -1456,7 +1456,7 @@ public abstract class XSDConcreteComponentImpl
     List theDiagnostics = getDiagnostics();
     if (!theDiagnostics.isEmpty())
     {
-      xsdSchema.getDiagnostics().removeAll(theDiagnostics);
+      xsdSchema.getAllDiagnostics().removeAll(theDiagnostics);
     }
     for (Iterator components = getXSDContents().iterator(); components.hasNext(); )
     {
