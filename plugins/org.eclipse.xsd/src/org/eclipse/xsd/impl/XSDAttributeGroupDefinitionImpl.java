@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: XSDAttributeGroupDefinitionImpl.java,v 1.12 2006/07/15 12:33:14 emerks Exp $
+ * $Id: XSDAttributeGroupDefinitionImpl.java,v 1.12.2.1 2007/05/08 19:12:32 emerks Exp $
  */
 package org.eclipse.xsd.impl;
 
@@ -528,6 +528,14 @@ public class XSDAttributeGroupDefinitionImpl
       localWildcard = localWildcard.attributeWildcardUnion(baseWildcard);
     }
     return localWildcard;
+  }
+
+  protected void patchTargetNamespaceAttribute(XSDSchema xsdSchema)
+  {
+    if (!isAttributeGroupDefinitionReference())
+    {
+      super.patchTargetNamespaceAttribute(xsdSchema);
+    }
   }
 
   protected void reconcileAttributes(Element changedElement)

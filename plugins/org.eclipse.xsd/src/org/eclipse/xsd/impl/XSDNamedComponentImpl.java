@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: XSDNamedComponentImpl.java,v 1.12.2.2 2007/03/16 13:33:38 emerks Exp $
+ * $Id: XSDNamedComponentImpl.java,v 1.12.2.3 2007/05/08 19:12:32 emerks Exp $
  */
 package org.eclipse.xsd.impl;
 
@@ -773,22 +773,22 @@ public abstract class XSDNamedComponentImpl
     XSDSchema xsdSchema = getSchema();
     if (xsdSchema != null)
     {
-      String newTargetNamespace = xsdSchema.getTargetNamespace();
-      if (newTargetNamespace == null ? getTargetNamespace() != null : !newTargetNamespace.equals(getTargetNamespace()))
-      {
-        setTargetNamespace(newTargetNamespace);
-      }
+      patchTargetNamespaceAttribute(xsdSchema);
     }
   }
 
-  protected void adoptBy(XSDSchema xsdSchema)
+  protected void patchTargetNamespaceAttribute(XSDSchema xsdSchema)
   {
     String newTargetNamespace = xsdSchema.getTargetNamespace();
     if (newTargetNamespace == null ? getTargetNamespace() != null : !newTargetNamespace.equals(getTargetNamespace()))
     {
       setTargetNamespace(newTargetNamespace);
     }
+  }
 
+  protected void adoptBy(XSDSchema xsdSchema)
+  {
+    patchTargetNamespaceAttribute(xsdSchema);
     super.adoptBy(xsdSchema);
   }
 
