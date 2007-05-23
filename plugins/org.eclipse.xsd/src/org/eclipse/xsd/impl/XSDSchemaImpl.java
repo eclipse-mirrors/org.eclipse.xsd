@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: XSDSchemaImpl.java,v 1.32.2.1 2007/02/13 18:48:48 emerks Exp $
+ * $Id: XSDSchemaImpl.java,v 1.32.2.2 2007/05/23 18:18:36 emerks Exp $
  */
 package org.eclipse.xsd.impl;
 
@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -1466,8 +1467,12 @@ public class XSDSchemaImpl
     }
   }
 
+  Collection circularResolveDependencies;
+
   protected void patch()
   {
+    circularResolveDependencies = new HashSet();
+
     incorporatingSchemas = null;
     
     if (XSDConstants.isSchemaForSchemaNamespace(getTargetNamespace()))
@@ -1532,6 +1537,17 @@ public class XSDSchemaImpl
       }
     }
     
+    if (circularResolveDependencies != null)
+    {
+      Collection localCircularResolveDependencies = circularResolveDependencies;
+      circularResolveDependencies = null;
+      for (Iterator i = localCircularResolveDependencies.iterator(); i.hasNext(); )
+      {
+        XSDSchemaImpl circularSchema = (XSDSchemaImpl)i.next();
+        circularSchema.patch();
+      }
+    }
+
     if (schemaLocation != null)
     {
       for (int i = 0, size = schemasToPatch.size(); i < size; ++i)
@@ -2137,6 +2153,11 @@ public class XSDSchemaImpl
               if (importedSchema != null)
               {
                 result.add(importedSchema);
+                Collection circular = ((XSDSchemaImpl)importedSchema).circularResolveDependencies;
+                if (circular != null)
+                {
+                  circular.add(this);
+                }
               }
             }
           }
