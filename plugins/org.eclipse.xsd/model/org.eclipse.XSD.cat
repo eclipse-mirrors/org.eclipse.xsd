@@ -4463,6 +4463,11 @@
 		    quidu      	"3B66ED840290"
 		    is_aggregate 	TRUE)
 		(object Role "syntheticWildcard"
+			attributes 	(list Attribute_Set
+			(object Attribute
+			    tool       	"Ecore"
+			    name       	"isTransient"
+			    value      	TRUE))
 		    quid       	"3D4C69020318"
 		    label      	"syntheticWildcard"
 		    supplier   	"Logical View::xsd::XSDWildcard"
