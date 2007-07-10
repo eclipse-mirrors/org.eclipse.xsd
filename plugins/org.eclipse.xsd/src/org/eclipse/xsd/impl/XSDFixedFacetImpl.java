@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: XSDFixedFacetImpl.java,v 1.9 2005/11/25 13:13:59 emerks Exp $
+ * $Id: XSDFixedFacetImpl.java,v 1.9.2.1 2007/07/10 14:29:34 emerks Exp $
  */
 package org.eclipse.xsd.impl;
 
@@ -304,6 +304,15 @@ public abstract class XSDFixedFacetImpl
          XSDConstants.VALUE_ATTRIBUTE,
          XSDConstants.ID_ATTRIBUTE
        });
+    
+    checkBuiltInTypeConstraint
+      ("ID",
+       null,
+       XSDConstants.PART2,
+       "element-" + getFacetName(),
+       theElement,
+       XSDConstants.ID_ATTRIBUTE,
+       false);
 
     XSDSimpleTypeDefinition xsdSimpleTypeDefinition = getSimpleTypeDefinition();
     for (Iterator facets = xsdSimpleTypeDefinition.getFacetContents().iterator(); facets.hasNext(); )

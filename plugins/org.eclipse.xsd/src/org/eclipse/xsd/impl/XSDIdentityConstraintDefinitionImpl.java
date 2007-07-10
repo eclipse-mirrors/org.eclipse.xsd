@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: XSDIdentityConstraintDefinitionImpl.java,v 1.9 2006/08/17 19:53:45 emerks Exp $
+ * $Id: XSDIdentityConstraintDefinitionImpl.java,v 1.9.2.1 2007/07/10 14:29:34 emerks Exp $
  */
 package org.eclipse.xsd.impl;
 
@@ -566,6 +566,15 @@ public class XSDIdentityConstraintDefinitionImpl
       checkAttributes(XSDConstants.PART1, anchor, theElement, attributes);
       checkComplexContent(xsdComplexTypeDefinition, XSDConstants.PART1, anchor, theElement);
     }
+    
+    checkBuiltInTypeConstraint
+      ("ID",
+       null,
+       XSDConstants.PART1,
+       anchor,
+       theElement,
+       XSDConstants.ID_ATTRIBUTE,
+       false);
 
     checkBuiltInTypeConstraint
       ("NCName",

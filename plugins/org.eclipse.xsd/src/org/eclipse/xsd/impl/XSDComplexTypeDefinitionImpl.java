@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: XSDComplexTypeDefinitionImpl.java,v 1.18.2.1 2007/06/25 15:20:44 emerks Exp $
+ * $Id: XSDComplexTypeDefinitionImpl.java,v 1.18.2.2 2007/07/10 14:29:34 emerks Exp $
  */
 package org.eclipse.xsd.impl;
 
@@ -1396,15 +1396,6 @@ public class XSDComplexTypeDefinitionImpl
             false);
          
          checkBuiltInTypeConstraint
-           ("ID",
-            null,
-            XSDConstants.PART1,
-            "element-complexType",
-            theElement,
-            XSDConstants.ID_ATTRIBUTE,
-            false);
-
-         checkBuiltInTypeConstraint
            ("derivationSet",
             null,
             XSDConstants.PART1,
@@ -1413,15 +1404,25 @@ public class XSDComplexTypeDefinitionImpl
             XSDConstants.FINAL_ATTRIBUTE,
             false);
 
-         checkBuiltInTypeConstraint
-           ("boolean",
-            null,
-            XSDConstants.PART1,
-            "element-complexType",
-            theElement,
-            XSDConstants.MIXED_ATTRIBUTE,
-            false);
       }
+
+      checkBuiltInTypeConstraint
+        ("ID",
+         null,
+         XSDConstants.PART1,
+         "element-complexType",
+         theElement,
+         XSDConstants.ID_ATTRIBUTE,
+         false);
+
+      checkBuiltInTypeConstraint
+        ("boolean",
+         null,
+         XSDConstants.PART1,
+         "element-complexType",
+         theElement,
+         XSDConstants.MIXED_ATTRIBUTE,
+         false);
 
       for (Node child = theElement.getFirstChild(); child != null; child = child.getNextSibling())
       {
@@ -1437,10 +1438,20 @@ public class XSDComplexTypeDefinitionImpl
                childElement,
                new String []
                {
+                 XSDConstants.ID_ATTRIBUTE,
                  XSDConstants.MIXED_ATTRIBUTE
                });
 
             checkElementComplexContent("complexContent", XSDConstants.PART1, "element-complexContent", childElement);
+
+            checkBuiltInTypeConstraint
+              ("ID",
+               null,
+               XSDConstants.PART1,
+               "element-complexContent",
+               childElement,
+               XSDConstants.ID_ATTRIBUTE,
+               false);
 
             checkBuiltInTypeConstraint
               ("boolean",
