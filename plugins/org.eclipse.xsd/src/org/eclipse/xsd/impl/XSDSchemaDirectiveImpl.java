@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: XSDSchemaDirectiveImpl.java,v 1.14 2006/07/25 14:07:37 emerks Exp $
+ * $Id: XSDSchemaDirectiveImpl.java,v 1.14.2.1 2007/07/10 20:48:49 emerks Exp $
  */
 package org.eclipse.xsd.impl;
 
@@ -340,7 +340,7 @@ public abstract class XSDSchemaDirectiveImpl
             XSDSchema resolvedSchema = locateSchema(xsdSchema, namespace, schemaLocation, resolvedSchemaLocation);
             if (resolvedSchema == null)
             {
-              URI uri = URI.createURI(resolvedSchemaLocation);
+              URI uri = URI.createURI(resolvedSchemaLocation == null ? "" : resolvedSchemaLocation);
               Resource resolvedResource = resourceSet.getResource(uri, false);
               if (resolvedResource == null)
               {
