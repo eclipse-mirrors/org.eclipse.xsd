@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: XSDWildcardImpl.java,v 1.11.2.1 2007/06/25 15:09:23 emerks Exp $
+ * $Id: XSDWildcardImpl.java,v 1.11.2.2 2007/08/14 18:30:26 emerks Exp $
  */
 package org.eclipse.xsd.impl;
 
@@ -1152,14 +1152,23 @@ public class XSDWildcardImpl
     //  Clause 5
     //
     else  if (XSDNamespaceConstraintCategory.NOT_LITERAL == getNamespaceConstraintCategory() &&
-                XSDNamespaceConstraintCategory.NOT_LITERAL == otherWildcard.getNamespaceConstraintCategory() &&
-                !getNamespaceConstraint().equals(otherWildcard.getNamespaceConstraint()))
+                XSDNamespaceConstraintCategory.NOT_LITERAL == otherWildcard.getNamespaceConstraintCategory())
     {
-      // EATM return a bad placeholder.
-      XSDWildcard result = getXSDFactory().createXSDWildcard();
-      result.setNamespaceConstraintCategory(XSDNamespaceConstraintCategory.NOT_LITERAL);
-      return result;
-      // return null;
+      if (getNamespaceConstraint().size() == 1 && getNamespaceConstraint().contains(null))
+      {
+        return otherWildcard;
+      }
+      else if (otherWildcard.getNamespaceConstraint().size() == 1 && otherWildcard.getNamespaceConstraint().contains(null))
+      {
+        return this;
+      }
+      else
+      {
+        // EATM return a bad placeholder.
+        XSDWildcard result = getXSDFactory().createXSDWildcard();
+        result.setNamespaceConstraintCategory(XSDNamespaceConstraintCategory.NOT_LITERAL);
+        return result;
+      }
     }
     //  Failure
     //
