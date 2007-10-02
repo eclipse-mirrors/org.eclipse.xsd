@@ -13,11 +13,10 @@
 
 	<topic label="Online Docs">
 		<topic label="Release Notes">
-			<topic label="What's New in v2.0" href="http://www.eclipse.org/emf/news/release-notes.php?version=2.0" />
-			<topic label="What's New in v1.x" href="http://www.eclipse.org/emf/news/release-notes-1.x.php" />
+			<topic label="What&apos;s New in v2.0" href="http://www.eclipse.org/modeling/mdt/xsd/news/relnotes2.0.php" />
 		</topic>
 
-		<topic label="XSD FAQ" href="http://www.eclipse.org/emf/faq/faq.php?FAQ=XSD" />
+		<topic label="XSD FAQ" href="http://wiki.eclipse.org/MDT/XSD/FAQ" />
 	</topic>
 
 	<topic label="Javadoc" href="references/javadoc/index.html"/>
