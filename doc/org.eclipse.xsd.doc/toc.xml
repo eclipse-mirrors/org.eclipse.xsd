@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?NLS TYPE="org.eclipse.help.toc"?>
 
+<!-- ====================================================================== -->
+<!-- Define the top level topics                                            -->
+<!-- ====================================================================== -->
+
 <toc label="XSD Developer Guide">
 	<topic label="Programmer&apos;s Guides">
 		<topic label="Article: Analyzing XML schemas with the Schema Infoset Model" href="references/articles/dwtip1-scpw/index.html"/>
@@ -8,11 +12,12 @@
 	</topic>
 	<topic label="Online Docs">
 		<topic label="Release Notes">
-			<topic label="What&apos;s New in v2.4" href="http://www.eclipse.org/modeling/mdt/news/relnotes.php?project=xsd&amp;version=2.4.x" />
-        </topic>
+			<topic label="What&apos;s New in v2.3" href="http://www.eclipse.org/modeling/mdt/news/relnotes.php?project=xsd&amp;version=2.3" />
+		</topic>
 		<topic label="XSD FAQ" href="http://wiki.eclipse.org/MDT/XSD/FAQ" />
 	</topic>
 	<topic label="Reference">
-		<link toc="topics_Reference.xml"/>
+	    <link toc="topics_Reference.xml"/>
 	</topic>
+	
 </toc>
