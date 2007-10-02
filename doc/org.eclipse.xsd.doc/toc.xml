@@ -12,12 +12,9 @@
 	</topic>
 	<topic label="Online Docs">
 		<topic label="Release Notes">
-			<topic label="What's New in v2.2" href="http://www.eclipse.org/modeling/mdt/news/relnotes.php?project=xsd&amp;version=2.2" />
-			<topic label="What's New in v2.1" href="http://www.eclipse.org/modeling/mdt/news/relnotes.php?project=xsd&amp;version=2.1" />
-			<topic label="What's New in v2.0" href="http://www.eclipse.org/modeling/mdt/news/relnotes.php?project=xsd&amp;version=2.0" />
-			<topic label="What's New in v1.x" href="http://www.eclipse.org/modeling/mdt/xsd/news/relnotes1.x.php#xsd" />
+			<topic label="What&apos;s New in v2.2" href="http://www.eclipse.org/modeling/mdt/news/relnotes.php?project=xsd&amp;version=2.2.x" />
 		</topic>
-		<topic label="XSD FAQ" href="http://www.eclipse.org/modeling/mdt/faq.php?project=xsd" />
+		<topic label="XSD FAQ" href="http://wiki.eclipse.org/MDT/XSD/FAQ" />
 	</topic>
 	<topic label="Reference">
 	    <link toc="topics_Reference.xml"/>
