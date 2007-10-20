@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: XSDElementDeclarationImpl.java,v 1.25.2.1 2007/10/20 16:17:59 emerks Exp $
+ * $Id: XSDElementDeclarationImpl.java,v 1.25.2.2 2007/10/20 16:22:17 emerks Exp $
  */
 package org.eclipse.xsd.impl;
 
@@ -1528,6 +1528,7 @@ public class XSDElementDeclarationImpl
     if (eReference == XSDPackage.Literals.XSD_ELEMENT_DECLARATION__ANONYMOUS_TYPE_DEFINITION)
     {
       setTypeDefinition((XSDTypeDefinition)xsdConcreteComponent);
+      traverseToRootForPatching();
     }
   }
 
