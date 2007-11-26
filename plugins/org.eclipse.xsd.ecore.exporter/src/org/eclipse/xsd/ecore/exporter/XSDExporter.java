@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: XSDExporter.java,v 1.7 2006/12/28 07:02:39 marcelop Exp $
+ * $Id: XSDExporter.java,v 1.7.2.1 2007/11/26 15:07:00 emerks Exp $
  */
 package org.eclipse.xsd.ecore.exporter;
 
@@ -104,14 +104,17 @@ public class XSDExporter extends ModelExporter
         {
           XSDImport xsdImport = (XSDImport)content;
           EPackage referencedEPackage = genModel.getExtendedMetaData().getPackage(xsdImport.getNamespace());
-          GenPackage referencedGenPackage = genModel.findGenPackage(referencedEPackage);
-          URI artifactURI = getReferencedGenPackageArtifactURI(exportData, referencedGenPackage);
-          URI importLocationURI = URI.createURI(computeSchemaLocation(xsdImport, artifactURI));
-          if (!schemaLocationURI.isRelative() && schemaLocationURI.isHierarchical() && !importLocationURI.isRelative())
+          if (referencedEPackage != null)
           {
-            importLocationURI = importLocationURI.deresolve(schemaLocationURI, true, true, false);
+            GenPackage referencedGenPackage = genModel.findGenPackage(referencedEPackage);
+            URI artifactURI = getReferencedGenPackageArtifactURI(exportData, referencedGenPackage);
+            URI importLocationURI = URI.createURI(computeSchemaLocation(xsdImport, artifactURI));
+            if (!schemaLocationURI.isRelative() && schemaLocationURI.isHierarchical() && !importLocationURI.isRelative())
+            {
+              importLocationURI = importLocationURI.deresolve(schemaLocationURI, true, true, false);
+            }
+            xsdImport.setSchemaLocation(importLocationURI.toString());
           }
-          xsdImport.setSchemaLocation(importLocationURI.toString());
         }
         else if (!(content instanceof XSDAnnotation))
         {
