@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: XSDResourceImpl.java,v 1.20 2008/08/09 13:28:47 emerks Exp $
+ * $Id: XSDResourceImpl.java,v 1.19.2.1 2008/10/23 15:59:13 emerks Exp $
  */
 package org.eclipse.xsd.util;
 
