@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: XSDSchemaDirectiveImpl.java,v 1.21 2008/09/15 15:10:30 emerks Exp $
+ * $Id: XSDSchemaDirectiveImpl.java,v 1.20.4.1 2008/10/23 16:19:28 emerks Exp $
  */
 package org.eclipse.xsd.impl;
 
