@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: XSDEcoreBuilder.java,v 1.94 2008/08/29 16:24:47 emerks Exp $
+ * $Id: XSDEcoreBuilder.java,v 1.93.2.1 2008/11/03 13:12:21 emerks Exp $
  */
 package org.eclipse.xsd.ecore;
 
@@ -199,18 +199,8 @@ public class XSDEcoreBuilder extends MapBuilder
         {
           containingXSDSchema = rootSchema;
         }
-        String nsURI = getEcoreAttribute(containingXSDSchema, "nsURI");
-        if (nsURI != null)
-        {
-          String qualifiedPackageName = qualifiedPackageName(nsURI);
-          ePackage.setName(qualifiedPackageName);
-          ePackage.setNsURI(nsURI);
-        }
-        else
-        {
-          ePackage.setName(validName(containingXSDSchema.eResource().getURI().trimFileExtension().lastSegment(), true));
-          ePackage.setNsURI(containingXSDSchema.eResource().getURI().toString());
-        }
+        ePackage.setName(validName(containingXSDSchema.eResource().getURI().trimFileExtension().lastSegment(), true));
+        ePackage.setNsURI(containingXSDSchema.eResource().getURI().toString());
 
         // Also register against the nsURI for the case that the target namespace is null.
         //
@@ -592,7 +582,7 @@ public class XSDEcoreBuilder extends MapBuilder
             List<?> values = xsdEnumerationFacet.getValue();
             if (!values.isEmpty())
             {
-              String lexicalValue= xsdEnumerationFacet.getLexicalValue();
+              String lexicalValue= xsdSimpleTypeDefinition.getNormalizedLiteral(xsdEnumerationFacet.getLexicalValue());
               Object value = values.get(0);
               if (value instanceof List)
               {
@@ -781,7 +771,7 @@ public class XSDEcoreBuilder extends MapBuilder
         XSDEnumerationFacet xsdEnumerationFacet = i.next();
         if (!"true".equalsIgnoreCase(getEcoreAttribute(xsdEnumerationFacet, "ignore")))
         {
-          String literal = xsdEnumerationFacet.getLexicalValue();
+          String literal = xsdSimpleTypeDefinition.getNormalizedLiteral(xsdEnumerationFacet.getLexicalValue());
           if (literal != null && eEnum.getEEnumLiteralByLiteral(literal) == null)
           {
             EEnumLiteral eEnumLiteral = EcoreFactory.eINSTANCE.createEEnumLiteral();
@@ -2343,11 +2333,12 @@ public class XSDEcoreBuilder extends MapBuilder
       // Set the default to the first enumeration's value.
       //
       eAttribute.setDefaultValueLiteral
-        ((xsdSimpleTypeDefinition.
-           getEffectiveEnumerationFacet().
-           getSimpleTypeDefinition().
-           getEnumerationFacets().
-           get(0)).getLexicalValue());
+        (xsdSimpleTypeDefinition.getNormalizedLiteral
+          ((xsdSimpleTypeDefinition.
+             getEffectiveEnumerationFacet().
+             getSimpleTypeDefinition().
+             getEnumerationFacets().
+             get(0)).getLexicalValue()));
     }
   }
 
