@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: XSDRedefineImpl.java,v 1.12 2005/11/25 13:14:00 emerks Exp $
+ * $Id: XSDRedefineImpl.java,v 1.12.2.1 2008/12/15 18:22:27 davidms Exp $
  */
 package org.eclipse.xsd.impl;
 
@@ -432,8 +432,8 @@ public class XSDRedefineImpl
               if (selfReferences.isEmpty())
               {
                 XSDModelGroupDefinition otherXSDModelGroupDefinition = 
-                  theResolvedSchema.resolveModelGroupDefinition(xsdModelGroupDefinition.getName());
-                if (otherXSDModelGroupDefinition.getContainer() == null)
+                  (XSDModelGroupDefinition)((XSDSchemaImpl)getContainer()).getRedefinitionMap().get(xsdModelGroupDefinition);
+                if (otherXSDModelGroupDefinition == null || otherXSDModelGroupDefinition.getContainer() == null)
                 {
                   ((XSDConcreteComponentImpl)xsdModelGroupDefinition).createDiagnostic
                     (XSDDiagnosticSeverity.ERROR_LITERAL,
@@ -498,8 +498,8 @@ public class XSDRedefineImpl
               if (selfReferences.isEmpty())
               {
                 XSDAttributeGroupDefinition otherXSDAttributeGroupDefinition = 
-                  theResolvedSchema.resolveAttributeGroupDefinition(xsdAttributeGroupDefinition.getName());
-                if (otherXSDAttributeGroupDefinition.getContainer() == null)
+                  (XSDAttributeGroupDefinition)((XSDSchemaImpl)getContainer()).getRedefinitionMap().get(xsdAttributeGroupDefinition);
+                if (otherXSDAttributeGroupDefinition == null || otherXSDAttributeGroupDefinition.getContainer() == null)
                 {
                   ((XSDConcreteComponentImpl)xsdAttributeGroupDefinition).createDiagnostic
                     (XSDDiagnosticSeverity.ERROR_LITERAL,
