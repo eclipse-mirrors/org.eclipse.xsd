@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: XSDEcoreBuilder.java,v 1.93.2.1 2008/11/03 13:12:21 emerks Exp $
+ * $Id: XSDEcoreBuilder.java,v 1.93.2.2 2009/02/12 20:54:29 emerks Exp $
  */
 package org.eclipse.xsd.ecore;
 
@@ -1420,6 +1420,8 @@ public class XSDEcoreBuilder extends MapBuilder
             String operationName = operation.getAttributeNS(null, "name");
             eOperation.setName(operationName);
 
+            eClass.getEOperations().add(eOperation);
+
             for (Element typeParameter : getElements(operation, "typeParameter"))
             {
               ETypeParameter eTypeParameter = EcoreFactory.eINSTANCE.createETypeParameter();
@@ -1460,7 +1462,6 @@ public class XSDEcoreBuilder extends MapBuilder
             }
 
             populateETypedElement(eOperation, operation);
-            eClass.getEOperations().add(eOperation);
           }
         }
       }
@@ -2448,11 +2449,13 @@ public class XSDEcoreBuilder extends MapBuilder
     {
       XSDModelGroup xsdModelGroup = (XSDModelGroup)xsdTerm;
       List<XSDParticle> particles = xsdModelGroup.getParticles();
-      if (particles.size() == 0)
+      if (particles.size() == 0 ||
+            xsdModelGroup.getContainer() instanceof XSDModelGroupDefinition &&
+            ((XSDModelGroupDefinition)xsdModelGroup.getContainer()).isCircular())
       {
         return;
       }
-      else
+      else 
       {
         boolean isIgnored =
           effectiveMaxOccurs == 1 ||
