@@ -14,6 +14,7 @@
 
 		<copy todir="${target.directory}">
 			<fileset dir="${basedir}">
+				<exclude name="bin/**" />
 				<exclude name="build/**" />
 			</fileset>
 		</copy>
